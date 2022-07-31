@@ -277,6 +277,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {% for i in lis %}
                                         <tr>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
@@ -285,181 +286,26 @@
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center">
                                                         <a href="student-profile.html">
-                                                            <h6 class="mb-0 text-sm">Ronit Bhamere</h6>
+                                                            <h6 class="mb-0 text-sm">{{i['s_name']}}</h6>
                                                         </a>
-                                                        <p class="text-xs text-secondary mb-0">ronit.bhamere@gmail.com</p>
+                                                        <p class="text-xs text-secondary mb-0">{{i['p_email']}}</p>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td>
                                                 
-                                                <p class="text-xs text-secondary mb-0">5</p>
+                                                <p class="text-xs text-secondary mb-0">{{i['age']}}</p>
                                             </td>
                                             
                                             <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold">SVIS</span>
+                                                <span class="text-secondary text-xs font-weight-bold">{{i['school']}}</span>
                                             </td>
                                             <td class="align-middle text-center text-sm">
-                                                <button onclick="window.location.href='{{ url_for( 'student_profile1' ) }}';" class="badge badge-sm bg-gradient-success" style="border: none;" >View</button>
+                                                <button class="badge badge-sm bg-gradient-success" style="border: none;" ><a href="http://127.0.0.1:5000/{{i['s_name']}}">View</a></button>
                                                 
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex px-2 py-1">
-                                                    <div>
-                                                        <img src="../static/assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
-                                                    </div>
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <a href="student-profile.html">
-                                                            <h6 class="mb-0 text-sm">Jay Munjapara</h6>
-                                                        </a>
-                                                        <p class="text-xs text-secondary mb-0">jay.munjapara@gmail.com</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                
-                                                <p class="text-xs text-secondary mb-0">7</p>
-                                            </td>
-                                            
-                                            <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold">SVIS</span>
-                                            </td>
-                                            <td class="align-middle text-center text-sm">
-                                                <button class="badge badge-sm bg-gradient-success" style="border: none;" >View</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex px-2 py-1">
-                                                    <div>
-                                                        <img src="../static/assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
-                                                    </div>
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <a href="student-profile.html">
-                                                            <h6 class="mb-0 text-sm">Isha Patel</h6>
-                                                        </a>
-                                                        <p class="text-xs text-secondary mb-0">isha.patel@gmail.com</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                               
-                                                <p class="text-xs text-secondary mb-0">6</p>
-                                            </td>
-                                            
-                                            <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold">SVIS</span>
-                                            </td>
-                                            <td class="align-middle text-center text-sm">
-                                                <button class="badge badge-sm bg-gradient-success" style="border: none;" >View</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex px-2 py-1">
-                                                    <div>
-                                                        <img src="../static/assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
-                                                    </div>
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <a href="student-profile.html">
-                                                            <h6 class="mb-0 text-sm">Varad Sawant</h6>
-                                                        </a>
-                                                        <p class="text-xs text-secondary mb-0">varad.sawant@gmail.com</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                
-                                                <p class="text-xs text-secondary mb-0">9</p>
-                                            </td>
-                                            
-                                            <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold">SVIS</span>
-                                            </td>
-                                            <td class="align-middle text-center text-sm">
-                                                <button class="badge badge-sm bg-gradient-success" style="border: none;" >View</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex px-2 py-1">
-                                                    <div>
-                                                        <img src="../static/assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
-                                                    </div>
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <a href="student-profile.html">
-                                                            <h6 class="mb-0 text-sm">Sakshi Agrawal</h6>
-                                                        </a>
-                                                        <p class="text-xs text-secondary mb-0">sakshi.agrawal@gmail.com</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                
-                                                <p class="text-xs text-secondary mb-0">9</p>
-                                            </td>
-                                            
-                                            <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold">RIS</span>
-                                            </td>
-                                            <td class="align-middle text-center text-sm">
-                                                <button class="badge badge-sm bg-gradient-success" style="border: none;" >View</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex px-2 py-1">
-                                                    <div>
-                                                        <img src="../static/assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
-                                                    </div>
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <a href="student-profile.html">
-                                                            <h6 class="mb-0 text-sm">Dhruv Parikh</h6>
-                                                        </a>
-                                                        <p class="text-xs text-secondary mb-0">dhruv.parikh@gmail.com</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                
-                                                <p class="text-xs text-secondary mb-0">6</p>
-                                            </td>
-                                            
-                                            <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold">SJHS</span>
-                                            </td>
-                                            <td class="align-middle text-center text-sm">
-                                                <button class="badge badge-sm bg-gradient-success" style="border: none;" >View</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex px-2 py-1">
-                                                    <div>
-                                                        <img src="../static/assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
-                                                    </div>
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <a href="student-profile.html">
-                                                            <h6 class="mb-0 text-sm">Karan Shethia</h6>
-                                                        </a>
-                                                        <p class="text-xs text-secondary mb-0">karan.shethia@gmail.com</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                
-                                                <p class="text-xs text-secondary mb-0">10</p>
-                                            </td>
-                                            
-                                            <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold">DAV</span>
-                                            </td>
-                                            <td class="align-middle text-center text-sm">
-                                                <button class="badge badge-sm bg-gradient-success" style="border: none;" >View</button>
-                                            </td>
-                                        </tr>
+                                        {%endfor%}
                                     </tbody>
                                 </table>
                             </div>
