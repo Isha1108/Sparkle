@@ -1,29 +1,20 @@
 # from crypt import methods
+from os import access
 from flask import Flask, render_template, redirect, request, url_for, session
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
 from flask import Flask
-from flask_mail import Mail, Message
-import smtplib
+from flask_mail import Mail
 import speech_recognition as sr
-from pydub import AudioSegment
-import wave
-import keyboard
 import gspread
 import pandas as pd
-from oauth2client.service_account import ServiceAccountCredentials
-import pyaudio
 import pickle
 import numpy as np
 import pandas as pd
 import pandas as pd
-from sklearn.neighbors import KNeighborsClassifier
-import xgboost as xgb
 import numpy as np
 import pickle
-from decimal import Decimal
-from sklearn.model_selection import cross_val_score
-from sklearn.metrics import accuracy_score
+
 
 
 
@@ -177,6 +168,7 @@ def d_login():
         if account:
             session['loggedin'] = True
             session['d_mail'] = account['d_mail']
+            session['d_school'] = account['d_school']
             return redirect(url_for('dr_profile'))
 
     return render_template('d_login.html')
@@ -219,136 +211,136 @@ def student_profile1():
     questions_list = []
     responses_of_parent = []
 
-    student_name = 'Ronit Bhamere'
-    q1 = list_of_lists[0][1]
-    q2 = list_of_lists[0][2]
-    q3 = list_of_lists[0][3]
-    q4 = list_of_lists[0][4]
-    q5 = list_of_lists[0][5]
-    q6 = list_of_lists[0][6]
-    q7 = list_of_lists[0][7]
-    q8 = list_of_lists[0][8]
-    q9 = list_of_lists[0][9]
-    q10 = list_of_lists[0][10]
-    q11 = list_of_lists[0][11]
-    q12 = list_of_lists[0][12]
-    q13 = list_of_lists[0][13]
-    q14 = list_of_lists[0][14]
-    q15 = list_of_lists[0][15]
-    dic = {}
+    # student_name = 'Ronit Bhamere'
+    # q1 = list_of_lists[0][1]
+    # q2 = list_of_lists[0][2]
+    # q3 = list_of_lists[0][3]
+    # q4 = list_of_lists[0][4]
+    # q5 = list_of_lists[0][5]
+    # q6 = list_of_lists[0][6]
+    # q7 = list_of_lists[0][7]
+    # q8 = list_of_lists[0][8]
+    # q9 = list_of_lists[0][9]
+    # q10 = list_of_lists[0][10]
+    # q11 = list_of_lists[0][11]
+    # q12 = list_of_lists[0][12]
+    # q13 = list_of_lists[0][13]
+    # q14 = list_of_lists[0][14]
+    # q15 = list_of_lists[0][15]
+    # dic = {}
 
-    questions_list = [q1, q2, q3, q4, q5, q6,
-                      q7, q8, q9, q10, q11, q12, q13, q14, q15]
+    # questions_list = [q1, q2, q3, q4, q5, q6,
+    #                   q7, q8, q9, q10, q11, q12, q13, q14, q15]
 
-    for x in list_of_lists:
-        if student_name in x[16]:
-            a1 = x[1]
-            a2 = x[2]
-            a3 = x[3]
-            a4 = x[4]
-            a5 = x[5]
-            a6 = x[6]
-            a7 = x[7]
-            a8 = x[8]
-            a9 = x[9]
-            a10 = x[10]
-            a11 = x[11]
-            a12 = x[12]
-            a13 = x[13]
-            a14 = x[14]
-            a15 = x[15]
-            student_id = x[18]
+    # for x in list_of_lists:
+    #     if student_name in x[16]:
+    #         a1 = x[1]
+    #         a2 = x[2]
+    #         a3 = x[3]
+    #         a4 = x[4]
+    #         a5 = x[5]
+    #         a6 = x[6]
+    #         a7 = x[7]
+    #         a8 = x[8]
+    #         a9 = x[9]
+    #         a10 = x[10]
+    #         a11 = x[11]
+    #         a12 = x[12]
+    #         a13 = x[13]
+    #         a14 = x[14]
+    #         a15 = x[15]
+    #         student_id = x[18]
 
-    responses_of_parent = [a1, a2, a3, a4, a5, a6,
-                           a7, a8, a9, a10, a11, a12, a13, a14, a15]
-    dic = dict(zip(questions_list, responses_of_parent))
+    # responses_of_parent = [a1, a2, a3, a4, a5, a6,
+    #                        a7, a8, a9, a10, a11, a12, a13, a14, a15]
+    # dic = dict(zip(questions_list, responses_of_parent))
 
-    print(dic)
+    # print(dic)
 
-    # st_name = 'Ronit'
+    # # st_name = 'Ronit'
+
+    # # cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    # # cursor.execute('SELECT * FROM analysis WHERE st_name=%s', [st_name])
+    # # ana = cursor.fetchall()
+
+    # # print(ana)
+
+    # if request.method == 'POST' and 't1' in request.form:
+    #     t1 = request.form.getlist('t1')
+    #     t2 = request.form.getlist('t2')
+    #     print(t1, t2)
+    #     test = t1[0]
+
+    # s_id = 123
 
     # cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    # cursor.execute('SELECT * FROM analysis WHERE st_name=%s', [st_name])
-    # ana = cursor.fetchall()
-
-    # print(ana)
-
-    if request.method == 'POST' and 't1' in request.form:
-        t1 = request.form.getlist('t1')
-        t2 = request.form.getlist('t2')
-        print(t1, t2)
-        test = t1[0]
-
-    s_id = 123
-
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('INSERT INTO courses VALUES(%s,%s)', [s_id, test])
-    mysql.connection.commit()
+    # cursor.execute('INSERT INTO courses VALUES(%s,%s)', [s_id, test])
+    # mysql.connection.commit()
 
 
 
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM sample')
-    lis = cursor.fetchall()
+    # cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    # cursor.execute('SELECT * FROM sample')
+    # lis = cursor.fetchall()
 
-    list1 = []
-    for i in range(len(lis)):
-        x = lis[i]
-        list_h = []
-        for key in x.values():
-            list_h.append(key)
-        list1.append(list_h)
-    print(list1)
+    # list1 = []
+    # for i in range(len(lis)):
+    #     x = lis[i]
+    #     list_h = []
+    #     for key in x.values():
+    #         list_h.append(key)
+    #     list1.append(list_h)
+    # print(list1)
 
-    loaded_model = pickle.load(open('xg2.sav', 'rb'))
+    # loaded_model = pickle.load(open('xg2.sav', 'rb'))
 
-    for i in list1:
-        test = [i]
-        print(test)
-        output = return_top_n_pred_prob_df(3, loaded_model, test, "test")
-        l = output.values.tolist()
+    # for i in list1:
+    #     test = [i]
+    #     print(test)
+    #     output = return_top_n_pred_prob_df(3, loaded_model, test, "test")
+    #     l = output.values.tolist()
 
-        disease1 = l[0][1]
-        disease2 = l[0][3]
-        disease3 = l[0][5]
-        acc1 = str(round(l[0][0]*100, 3))
-        acc2 = str(round(l[0][2]*100, 3))
-        acc3 = str(round(l[0][4]*100, 3))
+    #     disease1 = l[0][1]
+    #     disease2 = l[0][3]
+    #     disease3 = l[0][5]
+    #     acc1 = str(round(l[0][0]*100, 3))
+    #     acc2 = str(round(l[0][2]*100, 3))
+    #     acc3 = str(round(l[0][4]*100, 3))
 
-        if disease1 == 1:
-            disease1 = 'No Disease '
-        elif disease1 == 2:
-            disease1 = "Dyslexia "
-        elif disease1 == 3:
-            disease1 = "Dyscalculia "
+    #     if disease1 == 1:
+    #         disease1 = 'No Disease '
+    #     elif disease1 == 2:
+    #         disease1 = "Dyslexia "
+    #     elif disease1 == 3:
+    #         disease1 = "Dyscalculia "
 
-        print(" The Probability of " + disease1 + " is : " + acc1)
+    #     print(" The Probability of " + disease1 + " is : " + acc1)
 
-        if disease2 == 1:
-            disease2 = 'No Disease '
-        elif disease2 == 2:
-            disease2 = "Dyslexia "
-        elif disease2 == 3:
-            disease2 = "Dyscalculia "
-        print(" The Probability of " + disease2 + " is : " + acc2)
+    #     if disease2 == 1:
+    #         disease2 = 'No Disease '
+    #     elif disease2 == 2:
+    #         disease2 = "Dyslexia "
+    #     elif disease2 == 3:
+    #         disease2 = "Dyscalculia "
+    #     print(" The Probability of " + disease2 + " is : " + acc2)
 
-        if disease3 == 1:
-            disease3 = 'No Disease '
-        elif disease3 == 2:
-            disease3 = "Dyslexia "
-        elif disease3 == 3:
-            disease3 = "Dyscalculia "
-        print(" The Probability of " + disease3 + " is : " + acc3)
+    #     if disease3 == 1:
+    #         disease3 = 'No Disease '
+    #     elif disease3 == 2:
+    #         disease3 = "Dyslexia "
+    #     elif disease3 == 3:
+    #         disease3 = "Dyscalculia "
+    #     print(" The Probability of " + disease3 + " is : " + acc3)
 
-        print(disease1, acc1, disease2, acc2, disease3, acc3)
+    #     print(disease1, acc1, disease2, acc2, disease3, acc3)
 
-        if disease1 == "No Disease is Identified":
-            print("No treatment required.")
-        elif (disease1 == "Dyslexia" or "Dyscalculia") and (disease2 == "Dyslexia" or "Dyscalculia"):
-            print(disease1, acc1, disease2, acc2)
+    #     if disease1 == "No Disease is Identified":
+    #         print("No treatment required.")
+    #     elif (disease1 == "Dyslexia" or "Dyscalculia") and (disease2 == "Dyslexia" or "Dyscalculia"):
+    #         print(disease1, acc1, disease2, acc2)
 
 
-    return render_template('student_profile1.html', dic=dic, disease1=disease1, acc1=acc1, disease2=disease2, acc2=acc2)
+    # return render_template('student_profile1.html', dic=dic, disease1=disease1, acc1=acc1, disease2=disease2, acc2=acc2)
 
 
 def return_top_n_pred_prob_df(n, model, X_test, column_name):
@@ -379,9 +371,10 @@ def return_top_n_pred_prob_df(n, model, X_test, column_name):
 
 @app.route('/student_list')
 def student_list():
-    # cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    # cursor.execute('SELECT * FROM sample')
-    # lis = cursor.fetchall()
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM p_creds WHERE school=%s', [session['d_school']])
+    lis = cursor.fetchall()
+    
 
     # list1 = []
     # for i in range(len(lis)):
@@ -441,7 +434,7 @@ def student_list():
 
             
 
-    return render_template('student_list.html')
+    return render_template('student_list.html',lis=lis)
 
 
 @app.route('/instructions')
@@ -645,11 +638,11 @@ def common_test():
         option3 = request.form['q3']
         
         
-        if option1 == "Yes":
+        if option1 == "yes":
             score += 1
-        if option2 == "Yes":
+        if option2 == "yes":
             score += 1
-        if option3 == "Yes":
+        if option3 == "yes":
             score += 1
         print("Score:"+str(score))
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -658,7 +651,7 @@ def common_test():
         mysql.connection.commit()
         return redirect(url_for('student_profile'))
     
-    return render_template('new_common_test.html')
+    return render_template('common_test.html')
 
 
 
@@ -684,7 +677,7 @@ def student_test1():
 @app.route('/p_login', methods=['GET', 'POST'])
 def p_login():
     if request.method == 'POST':
-        print("gg")
+       
         # Create variables for easy access
         p_email = request.form['p_email']
         p_pass = request.form['password']
@@ -697,11 +690,53 @@ def p_login():
         account = cursor.fetchone()
         # If account exists in accounts table in out database
         if account:
-            # account exists and test taken, so redirect to profile page
-            return render_template('parent_profile.html')
+            session['p_name']=account['p_name']
+            session['s_name']=account['s_name']
+            session['p_email']=account['p_email']            
+            return redirect(url_for('parent_profile'))
             # account exists and test NOT taken, so redirect to exam page page
     return render_template('p_login.html')
 
+@app.route('/parent_profile', methods=['GET','POST'])
+def parent_profile():
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM p_creds WHERE p_email=%s', [session['p_email']])
+    para = cursor.fetchone()
+    
+    return render_template('parent_profile.html',para=para)
+
+@app.route('/parent_diag_test1', methods=['GET','POST'])
+def parent_dys_test():
+    if request.method=="POST":
+        q1=request.form['q1']
+        q2=request.form['q2']
+        q3=request.form['q3']
+        q4=request.form['q4']
+        q5=request.form['q5']
+        q6=request.form['q6']
+        q7=request.form['q7']
+        q8=request.form['q8']
+        q9=request.form['q9']
+        q10=request.form['q10']
+        q11=request.form['q11']
+        q12=request.form['q12']
+        q13=request.form['q13']
+        q14=request.form['q14']
+        q15=request.form['q15']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('INSERT INTO dys_parent_test(p_email,q1,q2,q3,q4,q5,q6,q7,q8,q9,q10,q11,q12,q13,q14,q15) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)',
+                   [session['p_email'],q1,q2,q3,q4,q5,q6,q7,q8,q9,q10,q11,q12,q13,q14,q15])
+        mysql.connection.commit()
+        return redirect(url_for('parent_profile'))
+    return render_template('Questionaire.html')
+
+@app.route('/<s_name>')
+def s_name(s_name):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT s_name,school FROM p_creds WHERE s_name=%s',[s_name])
+    account=cursor.fetchone()
+    print(account)
+    return render_template('student_profile1.html',account=account)
 
 if __name__ == "__main__":
     app.run(debug=True)
