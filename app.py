@@ -733,10 +733,27 @@ def parent_dys_test():
 @app.route('/<s_name>')
 def s_name(s_name):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT s_name,school FROM p_creds WHERE s_name=%s',[s_name])
+    cursor.execute('SELECT s_name,school,p_email FROM p_creds WHERE s_name=%s',[s_name])
     account=cursor.fetchone()
-    print(account)
-    return render_template('student_profile1.html',account=account)
+
+    cursor.execute('SELECT * FROM dys_parent_test WHERE p_email=%s',[account['p_email']])
+    account1 =cursor.fetchone()
+    for i in account1:
+        if account1[i]==0:
+            account1[i]="Poor"
+        elif account1[i]==1:
+            account1[i]="Good"
+        elif account1[i]==2:
+            account1[i]="Excellent"
+    # account1 = account1.values()
+    # account1.replace(0,"Poor")
+    # account1.replace(1,"Good")
+    # account1.replace(2,"Excellent")
+    # print(account1['dict_values'])
+
+    print('aaaaaaaaaaaaaaaaaaa')
+    print(account1)
+    return render_template('student_profile1.html',account=account, account1=account1)
 
 if __name__ == "__main__":
     app.run(debug=True)
