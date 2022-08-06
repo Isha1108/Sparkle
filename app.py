@@ -495,7 +495,7 @@ def speechr():
 
     import itertools
     for (a, b) in zip(paragraph, text):
-        if a == b:
+        if a.lower() == b.lower():
             print(a, b)
             count += 1
     print(count)
@@ -705,6 +705,78 @@ def parent_profile():
     
     return render_template('parent_profile.html',para=para)
 
+@app.route('/student_test_word', methods=['GET','POST'])
+def student_test_word():
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM words')
+    para = cursor.fetchall()
+    print(para)
+
+    #spoken
+    para_list = []
+    for i in range(len(para)):
+        x = para[i]
+        list_h = []
+        for key in x.values():
+            list_h.append(key)
+        para_list.append(list_h)
+
+    paragraph_string = para_list[0][1]
+
+    r = sr.Recognizer()
+
+    paragraph = paragraph_string.lower()
+    punc = '''!()-[]{};:'",<>./?@#$%^&*~'''
+
+    for ele in paragraph:
+        if ele in punc:
+            paragraph = paragraph.replace(ele, "")
+
+    paragraph = paragraph.split()
+    print(paragraph)
+    text = ''
+    text_og = ''
+    # For Identification of Dyslexia. Small paragraph will be given.
+    # Paragraph to be mentioned in paragraph_string variable coming from database.
+    with sr.Microphone() as source:
+        # read the audio data from the default microphone
+        audio_data = r.record(source, duration=5)
+        print("Recognizing...")
+        # convert speech to text
+        try:
+            text_og = str(r.recognize_google(audio_data, language="en-IN"))
+            text = text_og.lower()
+            text = text.split(" ")
+        except:
+            pass
+    print(text)
+    count = 0
+    """for i in range(len(text)):
+        if text[i] in paragraph:
+            print(text[i])
+            count = count+1
+    print("Count : " + str(count))"""
+
+    import itertools
+    for (a, b) in zip(paragraph, text):
+        if a.lower() == b.lower():
+            print(a, b)
+            count += 1
+    print(count)
+    accuracy = 100 * (count/len(paragraph))
+    accuracy = round(accuracy, 2)
+
+
+    return render_template('student_test_word.html',para=para)
+
+@app.route('/student_test_sent', methods=['GET','POST'])
+def student_test_sent():
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM sentences')
+    para = cursor.fetchall()
+    print(para)
+    return render_template('student_test_sent.html',para=para)
+
 @app.route('/parent_diag_test1', methods=['GET','POST'])
 def parent_dys_test():
     if request.method=="POST":
@@ -745,15 +817,14 @@ def s_name(s_name):
             account1[i]="Good"
         elif account1[i]==2:
             account1[i]="Excellent"
-    # account1 = account1.values()
-    # account1.replace(0,"Poor")
-    # account1.replace(1,"Good")
-    # account1.replace(2,"Excellent")
-    # print(account1['dict_values'])
+    
+    cursor.execute('SELECT * FROM lex_test1 WHERE p_email=%s',[account['p_email']])
+    text1 = cursor.fetchone()
 
-    print('aaaaaaaaaaaaaaaaaaa')
-    print(account1)
-    return render_template('student_profile1.html',account=account, account1=account1)
+    cursor.execute('SELECT * FROM lex_test2 WHERE p_email=%s',[account['p_email']])
+    text2 = cursor.fetchone()
+
+    return render_template('student_profile1.html',account=account, account1=account1, text1=text1, text2=text2)
 
 if __name__ == "__main__":
     app.run(debug=True)
