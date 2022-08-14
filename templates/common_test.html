@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+
+<body>
+    <style>
+        body {
+            background-color: #e0f2f1;
+        }
+        
+        form p {
+            font-size: 120%;
+        }
+        
+        .ctrlqHeaderMast {
+            height: 278px;
+            background: #009688;
+        }
+        
+        .ctrlqFormContent {
+            color: rgba(0, 0, 0, .87);
+            padding: 20px 35px
+        }
+        
+        .ctrlqFormContentWrapper {
+            display: -webkit-box;
+            display: -moz-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            box-orient: vertical;
+            -webkit-flex-direction: column;
+            flex-direction: column
+        }
+        
+        .ctrlqAccent {
+            background-color: #a7ffeb;
+            height: 8px;
+        }
+        
+        .ctrlqCenteredContent {
+            margin: auto;
+            width: 600px;
+        }
+        
+        .ctrlqFormCard {
+            background-color: #fff;
+            margin-bottom: 48px;
+            -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+            box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+            word-wrap: break-word
+        }
+        
+        .ctrlqFormCard:first-of-type {
+            margin-top: -100px
+        }
+        
+        .ctrlqHeaderTitle {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            font-size: 34px;
+            line-height: 135%;
+            max-width: 100%;
+            min-width: 0%;
+            margin-bottom: 22px
+        }
+        
+        @media (max-width: 660px) {
+            .ctrlqHeaderMast {
+                height: 122px;
+            }
+            .ctrlqFormCard:first-of-type {
+                margin-top: -50px;
+            }
+            .ctrlqCenteredContent {
+                width: 90%;
+            }
+        }
+        
+        div.error {
+            position: relative;
+            top: -1rem;
+            left: 0rem;
+            font-size: 0.8rem;
+            color: #FF4081;
+            -webkit-transform: translateY(0%);
+            -ms-transform: translateY(0%);
+            -o-transform: translateY(0%);
+            transform: translateY(0%);
+        }
+        /* @import url('https://fonts.googleapis.com/css?family=Raleway:400,500,700,800');
+        
+                * {
+                    box-sizing: border-box
+                }
+        
+                html,
+                body {
+                    margin: 0;
+                    padding: 0;
+                    height: 100%;
+                    color: #14152C;
+                    font-family: 'Raleway', sans-serif;
+                }
+        
+                body {
+                    background-color: #f7f8fc;
+                } */
+        
+        .bottom {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #fff;
+            padding: 15px 10px;
+            box-shadow: 0px -2px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .bottom__container {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .progress {
+            width: 40%;
+            height: 10px;
+            position: relative;
+            border-radius: 5px;
+            overflow: hidden;
+            background-color: #ecedf5;
+        }
+        
+        .progress__inner {
+            position: absolute;
+            top: 0;
+            border-radius: 5px;
+            height: 100%;
+            left: 0;
+            width: 0%;
+            background-color: #5861af;
+            transition: .4s width linear
+        }
+        
+        .navigation__btn path {
+            fill: #A7AACB
+        }
+        
+        .navigation {
+            display: flex;
+            align-items: center;
+        }
+        
+        .navigation__btn {
+            display: flex;
+            align-items: center;
+            width: 44px;
+            border: 1px solid #A7AACB;
+            justify-content: center;
+            height: 44px;
+        }
+        
+        .navigation__btn--left {
+            border-top-left-radius: 6px;
+            border-bottom-left-radius: 6px
+        }
+        
+        .navigation__btn--right {
+            border-top-right-radius: 6px;
+            border-bottom-right-radius: 6px
+        }
+        
+        .quiz__question {
+            font-weight: 900;
+            letter-spacing: 1px;
+            margin-top: 0;
+            font-size: 34px;
+            margin-bottom: 50px;
+        }
+        
+        .container {
+            display: flex;
+            height: calc(100% - 74px);
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 10px;
+        }
+        
+        .answer:first-of-type {
+            margin-right: 15px;
+        }
+        
+        .answer__input {
+            appearance: none;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            width: 1px;
+            height: 1px;
+            position: absolute;
+            outline: none !important;
+        }
+        
+        .answer__label {
+            width: 140px;
+            border: 1px solid #A7AACB;
+            display: inline-block;
+            border-radius: 6px;
+            padding: 0px 15px;
+            padding-left: 55px;
+            line-height: 56px;
+            font-size: 15px;
+            color: #A7AACB;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .answer {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        
+        .quiz__step {
+            text-align: center;
+        }
+        
+        .answer__input:checked+.answer__label {
+            border-color: #5861af;
+            color: #14152C;
+            box-shadow: 0px 0px 1px 4px rgba(88, 97, 175, 0.2)
+        }
+        
+        .answer__input:checked+.answer__label .answer__tick {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .answer__char {
+            line-height: 24px;
+            display: inline-block;
+            width: 26px;
+            text-align: center;
+            font-size: 13px;
+            border-radius: 4px;
+            color: #c8cae0;
+            border: 1px solid #c8cae0;
+            font-weight: 600;
+            vertical-align: middle;
+            margin-right: 15px;
+        }
+        
+        .answer__tick {
+            display: inline-block;
+            vertical-align: middle;
+            background-color: #5861af;
+            margin-left: 20px;
+            line-height: 14px;
+            border-radius: 50%;
+            padding: 4px;
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .answer__tick path {
+            fill: #fff
+        }
+        
+        .quiz__inner {
+            max-width: 800px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .quiz__step:not(.quiz__step--current) {
+            visibility: hidden;
+            opacity: 0;
+            display: none;
+        }
+        
+        .question__emoji {
+            font-size: 45px;
+            margin-bottom: 15px;
+            display: inline-block;
+            margin-right: 15px;
+        }
+        
+        .navigation__btn--disabled {
+            opacity: 0.4;
+        }
+        
+        .submit__container {
+            margin-top: 25px;
+        }
+        
+        .submit {
+            background-color: #5861af;
+            line-height: 50px;
+            display: inline-block;
+            border-radius: 25px;
+            padding: 0 15px;
+            font-size: 13px;
+            text-decoration: none;
+            color: #fff;
+            letter-spacing: 1px;
+            box-shadow: 0px 6px 11px rgba(88, 97, 175, 0.6);
+            min-width: 130px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        
+        .thanks__tick {
+            line-height: 50px;
+            width: 50px;
+            font-size: 25px;
+            color: #fff;
+            background-color: #5861af;
+            border-radius: 50%;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .thanks__title {
+            font-weight: 900;
+            letter-spacing: 1px;
+            margin-top: 15px;
+            text-align: center;
+            font-size: 40px;
+        }
+        
+        .thanks {
+            text-align: center;
+        }
+    </style>
+
+    
+
+
+    <div>
+        <div class="ctrlqFormContentWrapper">
+            <div class="ctrlqHeaderMast"></div>
+            <div class="ctrlqCenteredContent">
+                <div class="ctrlqFormCard">
+                    <div class="ctrlqAccent"></div>
+                    <div class="ctrlqFormContent">
+
+                        <form  method="post">
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <h4>Sparkle Diagnostic Test | Dyscalculia</h4>
+                                    <p>All fields are required</p>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <p for="q1">Q.1 How many dots?</p>
+                                    <img class="input-field col s12" src="../static/assets/img/common-questionaire/dots.jpeg" alt="">
+                                    <div>
+                                        <input name="q1" type="radio" id="q1_yes" value="yes" data-error="#e5" required>
+                                        <label for="q1_yes">7</label>
+                                    </div>
+                                    <p>
+                                        <input name="q1" type="radio" id="q1_no" value="no">
+                                        <label for="q1_no">5</label>
+                                    </p>
+                                    <div class="input-field">
+                                        <br>
+                                        <div id="e5"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <p for="q2">Q.2 Which is taller?</p>
+                                    <img class="input-field col s12" src="../static/assets/img/common-questionaire/taller.jpeg" alt="">
+                                    <div>
+                                        <input name="q2" type="radio" id="q2_yes" value="no" data-error="#e5" required>
+                                        <label for="q2_yes">8</label>
+                                    </div>
+                                    <p>
+                                        <input name="q2" type="radio" id="q2_no" value="yes">
+                                        <label for="q2_no">3</label>
+                                    </p>
+                                    <div class="input-field">
+                                        <br>
+                                        <div id="e5"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <p for="q3">Q.3 Which is greater?</p>
+                                    <img class="input-field col s12" src="../static/assets/img/common-questionaire/greater.jpeg" alt="">
+                                    <div>
+                                        <input name="q3" type="radio" id="q3_yes" value="no" data-error="#e5" required>
+                                        <label for="q3_yes">7</label>
+                                    </div>
+                                    <p>
+                                        <input name="q3" type="radio" id="q3_no" value="yes">
+                                        <label for="q3_no">9</label>
+                                    </p>
+                                    <div class="input-field">
+                                        <br>
+                                        <div id="e5"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="row">
+                                <div class="input-field col m6 s12">
+                                    <!-- <button type="submit" value="submit">Login</button> -->
+                                    <button type="submit" class="waves-effect waves-light btn-large">Submit</button>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/additional-methods.min.js"></script>
+    </div>
+    <!-- <script>
+        $(document).ready(function() {
+            $('select').material_select();
+            $('.datepicker').pickadate({
+                selectMonths: true,
+                selectYears: 15
+            });
+            $.validator.setDefaults({
+                ignore: []
+            });
+            $("form").validate({
+                submitHandler: function(form) {
+                    console.log(form);
+                    return;
+                },
+                errorElement: 'div',
+                errorPlacement: function(error, element) {
+                    var placement = $(element).data('error');
+                    if (placement) {
+                        $(placement).append(error)
+                    } else {
+                        error.insertAfter(element);
+                    }
+                }
+            });
+
+        });
+    </script> -->
+
+</body>
+
+</html>
